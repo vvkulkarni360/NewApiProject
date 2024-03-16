@@ -1,3 +1,5 @@
+NOTE: THIS APP DOES NOT WORK IF HOSTED AS THE NEWSAPI WORKS ONLY ON LOCALHOST
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
