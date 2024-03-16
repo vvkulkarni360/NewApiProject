@@ -4,8 +4,12 @@ import Newsitem from './Newsitem'
 import Spinner from './Spinner'
 import PropTypes from 'prop-types'
 import InfiniteScroll from "react-infinite-scroll-component";
+import NewsContext from '../context/NewsContext';
+import { useContext } from 'react';
 
 const News = (props) => {
+    const context = useContext(NewsContext)
+    const {search}=context
     const [articles, setArticles] = useState([])
     const [loading, setLoading] = useState(true)
     const [page, setPage] = useState(1)
@@ -71,8 +75,10 @@ const News = (props) => {
 
 
                     <div className="row">
-                        {articles.map((element) => {
-                            return <div className="col-md-4" key={element.url}>
+                        {articles.filter((element)=>{
+                            return search.toLoaleLowerCase() === '' ? element : element.article.title.toLowerCase().includes(search)
+                        }).map((element) => {
+                            <div className="col-md-4" key={element.url}>
                                 <Newsitem title={element.title} description={element.description} imageurl={element.urlToImage ? element.urlToImage : "https://blank.page/ogimage.png"} newsurl={element.url} author={element.author} date={element.publishedAt} />
                             </div>
                         })}

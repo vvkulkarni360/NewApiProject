@@ -1,6 +1,7 @@
 // import PropTypes from 'prop-types'
 import React from 'react'
 import { Link } from "react-router-dom";
+import Searchbtn from './Searchbtn';
 
 const NavBar = () => {
     return (
@@ -41,6 +42,7 @@ const NavBar = () => {
                         </li>
                     </ul>
                 </div>
+                <Searchbtn/>
             </div>
         </nav></div>
     )
