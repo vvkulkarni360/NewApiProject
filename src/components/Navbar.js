@@ -1,6 +1,7 @@
 // import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { Link } from "react-router-dom";
+import Searchbtn from './Searchbtn';
 
 const NavBar = (props) => {
     const { onSearchButtonClick } = props
@@ -61,6 +62,7 @@ const NavBar = (props) => {
 
                     <button className="btn btn-outline-success" type="submit" onClick={handleSearchClick}>Search</button>
                 </form>
+
             </div>
         </nav></div>
     )

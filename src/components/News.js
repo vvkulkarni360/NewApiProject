@@ -4,6 +4,8 @@ import Newsitem from './Newsitem'
 import Spinner from './Spinner'
 import PropTypes from 'prop-types'
 import InfiniteScroll from "react-infinite-scroll-component";
+import NewsContext from '../context/NewsContext';
+import { useContext } from 'react';
 
 const News = (props) => {
     const { filterApply } = props
@@ -74,6 +76,7 @@ const News = (props) => {
 
 
                     <div className="row">
+
                         {articles.filter((element) => {
                             return filterApply.toLowerCase() === '' ? element : element.title.toLowerCase().includes(filterApply)
                         }).map((element) => {
