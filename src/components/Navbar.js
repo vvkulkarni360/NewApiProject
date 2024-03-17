@@ -1,12 +1,26 @@
 // import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from "react-router-dom";
 
-const NavBar = () => {
+const NavBar = (props) => {
+    const { onSearchButtonClick } = props
+    const [searchQuery, setSearchQuery] = useState('')
+
+    const handleInputChange = (e) => {
+        const query = e.target.value;
+        setSearchQuery(query)
+    }
+
+    const handleSearchClick = (e) => {
+        e.preventDefault()
+        onSearchButtonClick(searchQuery)
+        setSearchQuery(searchQuery)
+    }
+
     return (
         <div><nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
             <div className="container-fluid">
-                <Link className="navbar-brand" to="/">NewsMonkey V2</Link>
+                <Link className="navbar-brand" to="/">VNews</Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
@@ -41,6 +55,12 @@ const NavBar = () => {
                         </li>
                     </ul>
                 </div>
+                <form className="d-flex" role="search" onSubmit={handleSearchClick}>
+
+                    <input className="form-control me-2" type="text" placeholder="Search" aria-label="Search" value={searchQuery} onChange={handleInputChange} />
+
+                    <button className="btn btn-outline-success" type="submit" onClick={handleSearchClick}>Search</button>
+                </form>
             </div>
         </nav></div>
     )

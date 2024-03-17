@@ -6,10 +6,13 @@ import PropTypes from 'prop-types'
 import InfiniteScroll from "react-infinite-scroll-component";
 
 const News = (props) => {
+    const { filterApply } = props
+
     const [articles, setArticles] = useState([])
     const [loading, setLoading] = useState(true)
     const [page, setPage] = useState(1)
     const [totalResults, setTotalResults] = useState(0)
+
     const capitalizeFirstLetter = (string) => {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
@@ -31,7 +34,7 @@ const News = (props) => {
 
     }
     useEffect(() => {
-        document.title = `NewsMonkey-${capitalizeFirstLetter(props.category)}`
+        document.title = `VNews-${capitalizeFirstLetter(props.category)}`
         updatenews()
         // eslint-disable-next-line
     }, [])
@@ -59,7 +62,7 @@ const News = (props) => {
 
     return (
         <div className='container my-3'>
-            <h1 className="text-center" style={{ marginTop: "90px" }}>NewsMonkey top {capitalizeFirstLetter(props.category)} headlines</h1>
+            <h1 className="text-center" style={{ marginTop: "90px" }}>VNews top {capitalizeFirstLetter(props.category)} headlines</h1>
             {loading && <Spinner />}
             <InfiniteScroll
                 dataLength={articles.length}
@@ -71,11 +74,13 @@ const News = (props) => {
 
 
                     <div className="row">
-                        {articles.map((element) => {
-                            return <div className="col-md-4" key={element.url}>
-                                <Newsitem title={element.title} description={element.description} imageurl={element.urlToImage ? element.urlToImage : "https://blank.page/ogimage.png"} newsurl={element.url} author={element.author} date={element.publishedAt} />
-                            </div>
-                        })}
+                        {articles.filter((element) => {
+                            return filterApply.toLowerCase() === '' ? element : element.title.toLowerCase().includes(filterApply)
+                        }).map((element) => {
+                                return <div className="col-md-4" key={element.url}>
+                                    <Newsitem title={element.title} description={element.description} imageurl={element.urlToImage ? element.urlToImage : "https://blank.page/ogimage.png"} newsurl={element.url} author={element.author} date={element.publishedAt} />
+                                </div>
+                            })}
                     </div>
                 </div>
             </InfiniteScroll>
@@ -98,3 +103,11 @@ News.propTypes = {
     category: PropTypes.string
 }
 export default News
+
+// .filter((element) =>{
+//     return filterApply.toLowerCase() === '' ? element : element.articles.title.toLowerCase().includes(filterApply)
+// })
+
+// .filter((element) =>{
+//     return filterApply.toLowerCase() === '' ? element : console.log(element.articles.title)
+// })
